@@ -1,0 +1,25 @@
+name: my-node-hono-tutorial
+
+services:
+  pg:
+    image: postgres:15.3-alpine
+    ports:
+      - "${PG_DB_PORT}:5432"
+    volumes:
+      - ./volumes/pg/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${PG_DB_USER}
+      POSTGRES_PASSWORD: ${PG_DB_PASSWORD}
+
+  pgadmin:
+    image: dpage/pgadmin4:6
+    ports:
+      - "${PGADMIN_PORT}:5050"
+    volumes:
+      - ./volumes/pg/pgadmin:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
+    depends_on:
+      - pg

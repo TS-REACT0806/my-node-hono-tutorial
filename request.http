@@ -1,32 +1,9 @@
-GET http://localhost:3000/users
-Authorization: Bearer 123123
-
-###
-
-GET http://localhost:3000/users/public
-
-###
-
-GET http://localhost:3000/users/2
-Authorization: Bearer 123
-
-###
-
 POST http://localhost:3000/users
-Content-Type: application/json
-Authorization: Bearer 1234567890
-{
-  "name": "bossROD4"
-}
 
 ###
 
-DELETE http://localhost:3000/users/1
+GET http://localhost:3000/users/search?q=' OR '1'='1'; DELETE FROM users; --
 
 ###
 
-PUT http://localhost:3000/users/1
-
-###
-
-GET http://localhost:3000/products
+GET http://localhost:3000/users/' OR '1'='1'
