@@ -37,16 +37,15 @@ app.get("/users/search", async (c) => {
 
   const qWithWildcards = `%${q}%`;
 
-  const query = sql`
-   SELECT * FROM users 
-   WHERE first_name ILIKE ${qWithWildcards} OR last_name ILIKE ${qWithWildcards}  
-  `;
-
-  console.log(query.compile(dbClient));
+  const query = q
+    ? sql`
+      SELECT * FROM users 
+      WHERE first_name ILIKE ${qWithWildcards} 
+      OR last_name ILIKE ${qWithWildcards}`
+    : sql`SELECT * FROM users`;
 
   const results = await query.execute(dbClient);
-
-  return c.json(results.rows);
+  return c.json({ sql: query.compile(dbClient), data: results.rows });
 });
 
 app.get("/users/:name", async (c) => {
